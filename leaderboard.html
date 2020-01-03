@@ -3,8 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>JS Bin
-    </title>
+    <title>Leaderboard</title>
     <script src="//code.jquery.com/jquery-1.12.0.min.js">
     </script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css">
@@ -54,18 +53,14 @@
               var index = this.gs$cell.row-2;
               leaderboard[index] = this.gs$cell.$t;
             }
-          }
-                         );
+          });
           console.log(leaderboard);
           leaderboard.forEach(function(e,i){
             //$('.results').append('<h2>'+e.charAt(0).toUpperCase() + e.slice(1)+'</h2>');
             $('table').append('<tr><th scope="row">'+(i+1)+'</th><td>'+e.charAt(0).toUpperCase() + e.slice(1)+'</td></tr>');
-          }
-                             );
-        }
-                 )
-      }
-       );
+          });
+        });
+      });
     </script>
   </body>
 </html>
