@@ -10,9 +10,9 @@
     <link rel="apple-touch-icon" sizes="180x180" href="trophy/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="trophy/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="trophy/favicon-16x16.png">
-    <link rel="manifest" href="trophy/site.webmanifest">
+    <!--<link rel="manifest" href="trophy/site.webmanifest">-->
     <link rel="mask-icon" href="trophy/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
+    <!--<meta name="msapplication-TileColor" content="#da532c">-->
     <meta name="theme-color" content="#ffffff">
   </head>
   <body>
@@ -54,21 +54,28 @@
         var sheetUrl = 'https://spreadsheets.google.com/feeds/cells/1-q8Vzf7lJX6EQKwsfsQ70R9uSh3DK07poS20JS14MKc/2/public/full?alt=json';
         $.getJSON(sheetUrl, function(data){
           var entries = data.feed.entry;
-          //  console.log(entry);
+          // console.log(entries);
           var leaderboard = [null,null,null,null];
+          var colors = [null,null,null,null];
           $(entries).each(function(){
             //console.log(this.gs$cell.col);
-            if(this.gs$cell.col == "4" && this.gs$cell.row != "1"){
+            if(this.gs$cell.col == "4" && this.gs$cell.row != "1"){ // name
               // column 4, ignore header in row 1
               var index = this.gs$cell.row-2;
               leaderboard[index] = this.gs$cell.$t;
+            } else if(this.gs$cell.col == "14" && this.gs$cell.row != "1"){ // color
+              var index = this.gs$cell.row-2;
+              colors[index] = this.gs$cell.$t == "TRUE" ? "black" : "red";
             }
           });
+
           console.log(leaderboard);
+          console.log(colors);
           leaderboard.forEach(function(e,i){
             //$('.results').append('<h2>'+e.charAt(0).toUpperCase() + e.slice(1)+'</h2>');
-            $('table').append('<tr><th scope="row">'+(i+1)+'</th><td>'+e.charAt(0).toUpperCase() + e.slice(1)+'</td></tr>');
+            $('table').append('<tr style="color:'+colors[i]+';"><th scope="row">'+(i+1)+'</th><td>'+e.charAt(0).toUpperCase() + e.slice(1)+'</td></tr>');
           });
+
         });
       });
     </script>
